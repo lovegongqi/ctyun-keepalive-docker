@@ -1411,8 +1411,7 @@ def show_menu():
     print("  [4] 删除账号")
     print("  [5] 设备筛选配置")
     print("  [6] 查看配置")
-    print("  [7] 后台运行管理")
-    print("  [8] 依赖管理")
+    print("  [7] 依赖管理")
     print("  [0] 退出")
     print("=" * 50)
 
@@ -1528,17 +1527,14 @@ def main():
             input("\n按回车继续...")
         
         elif choice == '6':
+            print_header("查看配置")
             config = load_config()
-            print("\n当前配置:")
             for key, value in config.items():
                 label = CONFIG_LABELS.get(key, key)
-                print(f"{label}: {value}")
+                print(f"  {label}: {value}")
             input("\n按回车继续...")
         
         elif choice == '7':
-            menu_daemon_background()
-        
-        elif choice == '8':
             menu_dependencies()
             input("\n按回车继续...")
         
