@@ -223,6 +223,50 @@ docker inspect ctyun-keepalive
 docker pull mlmll/ctyun-keepalive:latest
 ```
 
+## 更新Docker镜像
+
+当项目有更新时，您可以通过以下步骤更新Docker镜像：
+
+```bash
+# 停止并删除当前容器
+docker-compose down
+
+# 拉取最新镜像
+docker-compose pull
+
+# 重新启动容器
+docker-compose up -d
+
+# 查看容器状态
+docker ps | grep ctyun-keepalive
+```
+
+## 企业微信推送设置
+
+### 步骤 1：创建企业微信群机器人
+1. **打开企业微信**，进入一个群聊（可以是专门创建的通知群）
+2. **点击群聊右上角的三个点**（群设置）
+3. **滚动到底部**，找到并点击 **"群机器人"**
+4. **点击 "添加"** 按钮，创建一个新的群机器人
+5. **填写机器人名称**（例如：天翼云保活通知）
+6. **点击 "添加"**，然后会显示 **webhook URL**
+7. **复制这个 URL**，格式应该是：`https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`
+
+### 步骤 2：配置脚本
+1. **以交互式模式运行容器**：
+   ```bash
+   docker-compose run --rm -it ctyun-keepalive python ctyun_keepalive.py
+   ```
+
+2. **选择 "7. 修改配置"** 选项
+3. **选择 "企业微信推送地址"**（通常是第 3 项）
+4. **粘贴您刚才复制的 webhook URL**
+5. **确保 "推送通知开关"** 处于开启状态（值为 True）
+
+### 步骤 3：测试推送
+1. **选择 "1. 执行一次保活"** 选项
+2. **完成保活操作后**，您应该会在企业微信中收到推送通知
+
 ## 联系方式
 
 如有问题，请参考本文档或联系脚本作者。
