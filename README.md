@@ -174,3 +174,4 @@ docker pull lovegongqi/ctyun-keepalive:latest
 **版本**: v6.4
 **更新日期**: 2026-03-26
 **项目地址**: https://github.com/lovegongqi/ctyun-keepalive-docker
+触发构建
