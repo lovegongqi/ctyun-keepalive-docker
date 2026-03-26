@@ -100,6 +100,7 @@ docker-compose up -d
 
 ### 管理命令
 
+#### 使用run_docker.sh脚本（推荐）
 ```bash
 # 构建镜像
 ./run_docker.sh build
@@ -118,6 +119,21 @@ docker-compose up -d
 
 # 查看状态
 ./run_docker.sh status
+```
+
+#### 直接使用docker-compose命令
+```bash
+# 查看当前运行的容器
+ docker ps
+
+# 只停止本项目的容器
+ docker-compose stop
+
+# 清理本项目的容器
+ docker-compose down
+
+# 启动本项目的容器
+ docker-compose up -d
 ```
 
 ### 脚本功能
