@@ -57,9 +57,11 @@ docker-compose run -it ctyun-keepalive python ctyun_keepalive.py
 # 按照菜单提示添加账号并执行保活
 # 完成后使用菜单中的"0. 退出"选项退出
 
-# 4. 停止并后台启动容器
+# 4. 停止并清理临时容器，然后后台启动正式容器
 
+# 清理临时容器（由docker-compose run创建）
 docker-compose down
+# 后台启动正式容器（名称为ctyun-keepalive）
 docker-compose up -d
 ```
 
@@ -90,9 +92,11 @@ docker-compose run -it ctyun-keepalive python ctyun_keepalive.py
 # 按照菜单提示添加账号并执行保活
 # 完成后使用菜单中的"0. 退出"选项退出
 
-# 4. 停止并后台启动容器
+# 4. 停止并清理临时容器，然后后台启动正式容器
 
+# 清理临时容器（由docker-compose run创建）
 docker-compose down
+# 后台启动正式容器（名称为ctyun-keepalive）
 docker-compose up -d
 ```
 
