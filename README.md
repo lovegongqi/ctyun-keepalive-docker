@@ -195,7 +195,7 @@ docker inspect ctyun-keepalive
 其他用户可以直接从DockerHub拉取构建好的镜像：
 
 ```bash
-docker pull lovegongqi/ctyun-keepalive:latest
+docker pull mlmll/ctyun-keepalive:latest
 ```
 
 ## 联系方式
