@@ -1153,6 +1153,68 @@ def menu_dependencies():
         print("\n  所有依赖已满足!")
 
 
+def menu_edit_config():
+    """菜单：修改配置"""
+    print_header("修改配置")
+    
+    config = load_config()
+    
+    # 显示配置选项
+    print("配置选项:")
+    for i, (key, value) in enumerate(config.items(), 1):
+        label = CONFIG_LABELS.get(key, key)
+        print(f"  [{i}] {label}: {value}")
+    print("  [0] 返回")
+    
+    # 选择要修改的配置
+    while True:
+        choice = input("\n请选择要修改的配置序号: ").strip()
+        if choice == '0':
+            return
+        
+        try:
+            index = int(choice) - 1
+            if 0 <= index < len(config):
+                break
+            else:
+                print("无效选择，请重新输入")
+        except ValueError:
+            print("无效输入，请输入数字")
+    
+    # 获取要修改的配置项
+    keys = list(config.keys())
+    key = keys[index]
+    current_value = config[key]
+    label = CONFIG_LABELS.get(key, key)
+    
+    # 提示输入新值
+    print(f"\n当前值: {current_value}")
+    new_value = input(f"请输入新值: ").strip()
+    
+    # 根据配置类型转换值
+    if isinstance(current_value, bool):
+        new_value = new_value.lower() in ('true', '1', 'yes', 'y')
+    elif isinstance(current_value, int):
+        try:
+            new_value = int(new_value)
+        except ValueError:
+            print("无效输入，保持原值")
+            return
+    elif isinstance(current_value, float):
+        try:
+            new_value = float(new_value)
+        except ValueError:
+            print("无效输入，保持原值")
+            return
+    
+    # 更新配置
+    config[key] = new_value
+    save_config(config)
+    reload_config()
+    
+    print(f"\n✓ 配置已更新: {label} = {new_value}")
+
+
 # ============================================================================
 # 后台运行模块
 # ============================================================================
@@ -1411,7 +1473,8 @@ def show_menu():
     print("  [4] 删除账号")
     print("  [5] 设备筛选配置")
     print("  [6] 查看配置")
-    print("  [7] 依赖管理")
+    print("  [7] 修改配置")
+    print("  [8] 依赖管理")
     print("  [0] 退出")
     print("=" * 50)
 
@@ -1535,6 +1598,10 @@ def main():
             input("\n按回车继续...")
         
         elif choice == '7':
+            menu_edit_config()
+            input("\n按回车继续...")
+        
+        elif choice == '8':
             menu_dependencies()
             input("\n按回车继续...")
         
