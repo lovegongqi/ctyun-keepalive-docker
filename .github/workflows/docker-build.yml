@@ -27,6 +27,6 @@ jobs:
       with:
         context: .
         push: ${{ github.event_name == 'push' }}
-        tags: mml/ctyun-keepalive:latest
+        tags: mlmll/ctyun-keepalive:latest
         cache-from: type=gha
         cache-to: type=gha,mode=max
