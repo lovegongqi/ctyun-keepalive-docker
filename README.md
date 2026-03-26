@@ -19,9 +19,10 @@
 
 ## 安装步骤
 
-### 1. 安装Docker和Docker Compose（如果未安装）
+### 方法一：直接使用DockerHub镜像（推荐）
 
 ```bash
+# 1. 安装Docker和Docker Compose（如果未安装）
 # 安装Docker
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
@@ -32,29 +33,61 @@ sudo apt-get install -y docker-compose
 # 添加当前用户到docker组（可选，避免每次使用sudo）
 sudo usermod -aG docker $USER
 # 重新登录以生效
+
+# 2. 创建docker-compose.yml文件
+cat > docker-compose.yml << 'EOF'
+version: '3.8'
+services:
+  ctyun-keepalive:
+    image: mlmll/ctyun-keepalive:latest
+    container_name: ctyun-keepalive
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+EOF
+
+# 3. 先以交互式模式启动容器进行账号登录和保活
+# 这样可以看到登录过程并处理可能的验证码
+
+docker-compose run --rm -it ctyun-keepalive python ctyun_keepalive.py
+# 按照菜单提示添加账号并执行保活
+
+# 4. 停止并后台启动容器
+
+docker-compose down
+docker-compose up -d
 ```
 
-### 2. 克隆项目
+### 方法二：从源码构建
 
 ```bash
+# 1. 安装Docker和Docker Compose（如果未安装）
+# 安装Docker
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
+# 安装Docker Compose
+sudo apt-get install -y docker-compose
+
+# 添加当前用户到docker组（可选，避免每次使用sudo）
+sudo usermod -aG docker $USER
+# 重新登录以生效
+
+# 2. 克隆项目
+
 git clone https://github.com/lovegongqi/ctyun-keepalive-docker.git
 cd ctyun-keepalive-docker
-```
 
-### 3. 构建和运行
+# 3. 先以交互式模式构建并运行容器进行账号登录
 
-```bash
-# 构建Docker镜像
-./run_docker.sh build
+docker-compose build
+docker-compose run --rm -it ctyun-keepalive python ctyun_keepalive.py
+# 按照菜单提示添加账号并执行保活
 
-# 启动容器
-./run_docker.sh up
+# 4. 停止并后台启动容器
 
-# 进入容器配置账号
-./run_docker.sh exec
-# 在容器内运行
-python ctyun_keepalive.py
-# 按照菜单提示添加账号
+docker-compose down
+docker-compose up -d
 ```
 
 ## 使用方法
