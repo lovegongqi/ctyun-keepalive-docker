@@ -46,5 +46,5 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # 设置环境变量
 ENV PYTHONUNBUFFERED=1
 
-# 启动命令
-CMD ["python", "ctyun_keepalive.py"]
+# 启动命令（默认以守护进程模式运行）
+CMD ["python", "ctyun_keepalive.py", "-d"]
