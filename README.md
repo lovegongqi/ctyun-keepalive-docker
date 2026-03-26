@@ -59,8 +59,21 @@ docker-compose run -it ctyun-keepalive python ctyun_keepalive.py
 
 # 4. 停止并清理临时容器，然后后台启动正式容器
 
-# 清理临时容器（由docker-compose run创建）
+# 查看所有容器（可选）
+docker ps -a
+
+# 停止临时容器（如果存在）
+docker stop $(docker ps -q --filter name=ctyun-keepalive-run) 2>/dev/null || true
+
+# 删除临时容器（如果存在）
+docker rm $(docker ps -aq --filter name=ctyun-keepalive-run) 2>/dev/null || true
+
+# 清理网络资源（如果有警告）
+docker network rm root_default 2>/dev/null || true
+
+# 清理所有相关资源
 docker-compose down
+
 # 后台启动正式容器（名称为ctyun-keepalive）
 docker-compose up -d
 ```
@@ -94,8 +107,21 @@ docker-compose run -it ctyun-keepalive python ctyun_keepalive.py
 
 # 4. 停止并清理临时容器，然后后台启动正式容器
 
-# 清理临时容器（由docker-compose run创建）
+# 查看所有容器（可选）
+docker ps -a
+
+# 停止临时容器（如果存在）
+docker stop $(docker ps -q --filter name=ctyun-keepalive-run) 2>/dev/null || true
+
+# 删除临时容器（如果存在）
+docker rm $(docker ps -aq --filter name=ctyun-keepalive-run) 2>/dev/null || true
+
+# 清理网络资源（如果有警告）
+docker network rm root_default 2>/dev/null || true
+
+# 清理所有相关资源
 docker-compose down
+
 # 后台启动正式容器（名称为ctyun-keepalive）
 docker-compose up -d
 ```
