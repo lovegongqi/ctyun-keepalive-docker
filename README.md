@@ -261,7 +261,7 @@ docker ps | grep ctyun-keepalive
 ### 步骤 2：配置脚本
 1. **以交互式模式运行容器**：
    ```bash
-   docker-compose run --rm -it ctyun-keepalive python ctyun_keepalive.py
+   docker-compose run -it ctyun-keepalive python ctyun_keepalive.py
    ```
 
 2. **选择 "7. 修改配置"** 选项
@@ -272,6 +272,12 @@ docker ps | grep ctyun-keepalive
 ### 步骤 3：测试推送
 1. **选择 "1. 执行一次保活"** 选项
 2. **完成保活操作后**，您应该会在企业微信中收到推送通知
+
+### 推送频率说明
+- **推送触发频率**：默认每10分钟执行一次保活操作，只有在有实际操作结果时才会推送
+- **推送触发条件**：当有设备开机、保活成功或出现错误时才会推送通知
+- **推送内容**：包含执行结果汇总、设备操作记录和执行时间（使用中国上海时区）
+- **推送配置**：可通过修改配置中的 `daemon_interval` 参数调整执行间隔，默认为600秒（10分钟）
 
 ## 联系方式
 
