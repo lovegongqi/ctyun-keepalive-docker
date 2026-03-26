@@ -53,25 +53,14 @@ EOF
 # 3. 先以交互式模式启动容器进行账号登录和保活
 # 这样可以看到登录过程并处理可能的验证码
 
-docker-compose run -it ctyun-keepalive python ctyun_keepalive.py
+docker-compose run --rm -it ctyun-keepalive python ctyun_keepalive.py
 # 按照菜单提示添加账号并执行保活
 # 完成后使用菜单中的"0. 退出"选项退出
+# --rm参数会在容器正常退出后自动删除临时容器
 
-# 4. 停止并清理临时容器，然后后台启动正式容器
+# 4. 后台启动正式容器
 
-# 查看所有容器（可选）
-docker ps -a
-
-# 停止临时容器（如果存在）
-docker stop $(docker ps -q --filter name=ctyun-keepalive-run) 2>/dev/null || true
-
-# 删除临时容器（如果存在）
-docker rm $(docker ps -aq --filter name=ctyun-keepalive-run) 2>/dev/null || true
-
-# 清理网络资源（如果有警告）
-docker network rm root_default 2>/dev/null || true
-
-# 清理所有相关资源
+# 清理所有相关资源（确保没有残留容器）
 docker-compose down
 
 # 后台启动正式容器（名称为ctyun-keepalive）
