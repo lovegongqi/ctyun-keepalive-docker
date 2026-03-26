@@ -1,0 +1,9 @@
+version: '3'
+services:
+  ctyun-keepalive:
+    build: .
+    container_name: ctyun-keepalive
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+    tty: true
