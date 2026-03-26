@@ -11,6 +11,8 @@
 - ✅ 自动重启，确保保活服务持续运行
 - ✅ 完整的管理脚本，操作简单
 - ✅ 支持多平台（Ubuntu、Debian、CentOS等）
+- ✅ 默认使用中国上海时区，确保推送通知时间准确
+- ✅ 默认以守护进程模式运行，避免交互式菜单导致的问题
 
 ## 系统要求
 
@@ -51,8 +53,9 @@ EOF
 # 3. 先以交互式模式启动容器进行账号登录和保活
 # 这样可以看到登录过程并处理可能的验证码
 
-docker-compose run --rm -it ctyun-keepalive python ctyun_keepalive.py
+docker-compose run -it ctyun-keepalive python ctyun_keepalive.py
 # 按照菜单提示添加账号并执行保活
+# 完成后使用菜单中的"0. 退出"选项退出
 
 # 4. 停止并后台启动容器
 
@@ -83,8 +86,9 @@ cd ctyun-keepalive-docker
 # 3. 先以交互式模式构建并运行容器进行账号登录
 
 docker-compose build
-docker-compose run --rm -it ctyun-keepalive python ctyun_keepalive.py
+docker-compose run -it ctyun-keepalive python ctyun_keepalive.py
 # 按照菜单提示添加账号并执行保活
+# 完成后使用菜单中的"0. 退出"选项退出
 
 # 4. 停止并后台启动容器
 
